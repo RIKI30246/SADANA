@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SADANA - STAH Dharma Sentana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Colors berdasarkan Identitas Kampus */
+        :root {
+            --stah-red: #CC0000;
+            --stah-green: #228B22;
+            --stah-black: #1A1A1A;
+            --stah-white: #FFFFFF;
+        }
+        body { background-color: var(--stah-white); font-family: 'Inter', sans-serif; }
+        .chat-container { height: 70vh; }
+        .bg-stah-red { background-color: var(--stah-red); }
+        .text-stah-green { color: var(--stah-green); }
+        .border-stah-black { border-color: var(--stah-black); }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header class="bg-stah-red text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-wider">SADANA</h1>
+            <p class="text-sm italic">Sentana Dharma Assistant</p>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto p-4 max-w-2xl">
+        <div class="chat-container bg-gray-50 border-2 border-stah-black rounded-lg flex flex-col overflow-hidden shadow-inner">
+            
+            <div id="chat-window" class="flex-grow p-4 overflow-y-auto space-y-4">
+                <div class="flex items-start">
+                    <div class="bg-stah-red text-white p-3 rounded-lg max-w-[80%]">
+                        <p class="font-bold text-xs mb-1">SADANA</p>
+                        Om Swastyastu! Selamat datang di portal resmi STAH Dharma Sentana. Apa yang ingin Anda ketahui hari ini?
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 bg-white border-t border-gray-200 flex gap-2">
+                <input type="text" id="user-input" placeholder="Tanyakan tentang pendaftaran atau prodi..." 
+                       class="flex-grow border border-gray-300 p-2 rounded-md focus:outline-none focus:border-stah-red">
+                <button onclick="sendMessage()" class="bg-stah-red hover:bg-red-700 text-white px-6 py-2 rounded-md transition">
+                    Kirim
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-2 flex items-center justify-center gap-2">
+            <span class="h-3 w-3 bg-stah-green rounded-full"></span>
+            <p class="text-xs text-gray-600 font-semibold">SADANA System Online</p>
+        </div>
+    </main>
+
+    <footer class="text-center p-4 text-gray-500 text-sm">
+        &copy; 2024 STAH Dharma Sentana Sulawesi Tengah.
+    </footer>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const chatWindow = document.getElementById('chat-window');
+            
+            if (input.value.trim() === "") return;
+
+            // Tambahkan pesan user ke layar
+            const userMsg = `<div class="flex justify-end">
+                                <div class="bg-gray-200 text-black p-3 rounded-lg max-w-[80%]">
+                                    ${input.value}
+                                </div>
+                             </div>`;
+            chatWindow.innerHTML += userMsg;
+            
+            // Scroll ke bawah
+            input.value = "";
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+
+            // Simulasi respon (Nanti dihubungkan ke Backend/API)
+            setTimeout(() => {
+                const aiResponse = `<div class="flex items-start">
+                                        <div class="bg-stah-red text-white p-3 rounded-lg max-w-[80%]">
+                                            <p class="font-bold text-xs mb-1">SADANA</p>
+                                            Terima kasih atas pertanyaannya. Saya sedang memproses informasi mengenai STAH Dharma Sentana untuk Anda.
+                                        </div>
+                                    </div>`;
+                chatWindow.innerHTML += aiResponse;
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
